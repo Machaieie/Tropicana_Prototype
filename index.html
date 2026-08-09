@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TROPICANA — Sistema de Gestão do Complexo</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<!-- ============================== LOGIN ============================== -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-hero">
+    <svg class="leaf-motif" viewBox="0 0 200 200" fill="none"><path d="M100 10C60 30 20 70 20 120c0 40 30 70 80 70s80-30 80-70c0-50-40-90-80-110Z" stroke="currentColor" stroke-width="2"/><path d="M100 20v170M40 90c30-10 60-10 120 0M40 140c30-10 90-10 120 0" stroke="currentColor" stroke-width="1.5"/></svg>
+    <div class="wordmark">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D6A94C" stroke-width="2"><path d="M12 2C8 5 4 9 4 14a8 8 0 0016 0c0-5-4-9-8-12Z"/></svg>
+      TROPICANA<span class="dot">.</span>
+    </div>
+    <div class="hero-copy">
+      <div class="eyebrow">Complexo Turístico &amp; Gestão</div>
+      <h1>Gerencie o bar, os quartos e a cozinha num único lugar.</h1>
+      <p>Vendas, reservas, estoque, cozinha e finanças do Complexo Tropicana centralizados numa plataforma pensada para a operação diária, em Maputo e em todo o país.</p>
+      <div class="hero-stats">
+        <div><strong>12</strong><span>Quartos</span></div>
+        <div><strong>30+</strong><span>Produtos</span></div>
+        <div><strong>3</strong><span>Perfis de acesso</span></div>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="login-panel">
+    <div class="login-box">
+      <h2>Entrar na sua conta</h2>
+      <p class="sub">Aceda ao painel de gestão do Complexo Tropicana.</p>
+      <div class="error-msg" id="loginError"></div>
+      <form id="loginForm">
+        <div class="field"><label>Email</label><input type="text" id="loginEmail" placeholder="seuemail@tropicana.co.mz" required></div>
+        <div class="field"><label>Senha</label><input type="password" id="loginPass" placeholder="••••••••" required></div>
+        <div class="field-row">
+          <label><input type="checkbox"> Lembrar-me</label>
+          <a href="#" onclick="event.preventDefault(); notImplemented('Recuperação de senha')">Esqueci minha senha</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+      </form>
+      <div class="demo-accounts">
+        <p>Contas de demonstração</p>
+        <button type="button" class="demo-chip" onclick="fillLogin('admin@tropicana.co.mz','123456')"><span><b>Administrador</b><span>admin@tropicana.co.mz</span></span><span class="tag">GESTOR</span></button>
+        <button type="button" class="demo-chip" onclick="fillLogin('barman@tropicana.co.mz','123456')"><span><b>Barman</b><span>barman@tropicana.co.mz</span></span><span class="tag">BARMAN</span></button>
+        <button type="button" class="demo-chip" onclick="fillLogin('recepcao@tropicana.co.mz','123456')"><span><b>Recepção</b><span>recepcao@tropicana.co.mz</span></span><span class="tag">RECEÇÃO</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== APP SHELL ============================== -->
+<div class="app-shell" id="appShell">
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D6A94C" stroke-width="2"><path d="M12 2C8 5 4 9 4 14a8 8 0 0016 0c0-5-4-9-8-12Z"/></svg>
+      <div class="word">TROPICANA<small>Complexo Turístico &amp; Gestão</small></div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="sidebarUser">
+        <div class="avatar"></div>
+        <div class="who"><b></b><span></span></div>
+      </div>
+      <div class="logout-btn" onclick="logout()"><i data-lucide="log-out"></i><span>Sair</span></div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn menu-toggle" onclick="toggleSidebar()"><i data-lucide="menu"></i></button>
+        <div>
+          <div class="page-title" id="pageTitle">Dashboard</div>
+        </div>
+      </div>
+      <div class="topbar-right" style="position:relative;">
+        <button class="icon-btn" id="notifBtn" onclick="toggleNotifDropdown()">
+          <i data-lucide="bell"></i><span class="dot" id="notifCount"></span>
+        </button>
+        <div class="dropdown-panel" id="notifDropdown">
+          <div class="dp-head">Notificações</div>
+          <div id="notifList"></div>
+        </div>
+      </div>
+    </header>
+    <main class="content" id="content"></main>
+  </div>
+</div>
+
+<!-- ============================== MODAL / TOAST ============================== -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
